@@ -1,4 +1,4 @@
-package ru.tracker.calorie_tracker.service;
+package ru.tracker.calorie_tracker.service.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class SimpleUserService implements UserService {
 
     private UserRepository userRepository;
 
@@ -40,11 +40,11 @@ public class UserService {
                 + (13.4 * user.getWeight())
                 + (4.8 + user.getHeight())
                 + (5.7 + user.getAge());
-        switch (user.getGoal()) {
+        /*switch (user.getGoal()) {
             case WEIGHT_LOSS -> calorie = calorie - 500;
             case MAINTENANCE -> calorie = calorie + 0;
             case WEIGHT_GAIN -> calorie = calorie + 500;
-        }
+        }*/
         return calorie;
     }
 }
