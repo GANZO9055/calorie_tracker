@@ -2,6 +2,8 @@ package ru.tracker.calorie_tracker.service.dish;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.tracker.calorie_tracker.dto.DishDto;
+import ru.tracker.calorie_tracker.mapper.Mapper;
 import ru.tracker.calorie_tracker.model.Dish;
 import ru.tracker.calorie_tracker.repository.DishRepository;
 
@@ -12,17 +14,19 @@ import java.util.Optional;
 public class SimpleDishService implements DishService {
 
     private DishRepository dishRepository;
+    private Mapper mapper;
 
-    public Dish save(Dish dish) {
-        return dishRepository.save(dish);
+    public Dish save(DishDto dishDto) {
+        return dishRepository.save(
+                mapper.mappingDishDtoToDishEntity(dishDto)
+        );
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         dishRepository.deleteById(id);
     }
 
-    public Optional<Dish> findById(Integer id) {
+    public Optional<Dish> findById(Long id) {
         return dishRepository.findById(id);
     }
-
 }

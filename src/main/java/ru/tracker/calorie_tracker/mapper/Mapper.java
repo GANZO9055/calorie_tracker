@@ -1,8 +1,12 @@
 package ru.tracker.calorie_tracker.mapper;
 
+import org.springframework.stereotype.Component;
+import ru.tracker.calorie_tracker.dto.DishDto;
 import ru.tracker.calorie_tracker.dto.UserDto;
+import ru.tracker.calorie_tracker.model.Dish;
 import ru.tracker.calorie_tracker.model.User;
 
+@Component
 public class Mapper {
 
     public User mappingUserDtoToUserEntity(UserDto userDto) {
@@ -21,6 +25,17 @@ public class Mapper {
                 userDto.getWeight(),
                 userDto.getHeight(),
                 value
+        );
+    }
+
+    public Dish mappingDishDtoToDishEntity(DishDto dishDto) {
+        return new Dish(
+                dishDto.getId(),
+                dishDto.getName(),
+                dishDto.getCalories(),
+                dishDto.getProtein(),
+                dishDto.getFat(),
+                dishDto.getCarbs()
         );
     }
 }

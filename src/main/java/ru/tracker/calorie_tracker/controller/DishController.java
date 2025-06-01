@@ -1,8 +1,9 @@
 package ru.tracker.calorie_tracker.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.tracker.calorie_tracker.dto.DishDto;
+import ru.tracker.calorie_tracker.model.Dish;
 import ru.tracker.calorie_tracker.service.dish.DishService;
 
 @RestController
@@ -11,5 +12,15 @@ import ru.tracker.calorie_tracker.service.dish.DishService;
 public class DishController {
 
     private DishService dishService;
+
+    @PostMapping()
+    public void createDish(@RequestBody DishDto dishDto) {
+        dishService.save(dishDto);
+    }
+
+    @GetMapping("/{id}")
+    public void findDishById(@PathVariable Long id) {
+        dishService.findById(id);
+    }
 
 }
