@@ -1,4 +1,4 @@
-package ru.tracker.calorie_tracker.model;
+package ru.tracker.calorie_tracker.dto;
 
 public enum Goal {
     WEIGHT_LOSS,

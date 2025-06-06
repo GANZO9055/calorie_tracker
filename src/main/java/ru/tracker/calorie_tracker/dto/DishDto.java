@@ -1,18 +1,13 @@
-package ru.tracker.calorie_tracker.model;
+package ru.tracker.calorie_tracker.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "dishs")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Dish {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DishDto {
     private int id;
     private String name;
     private int calories;
