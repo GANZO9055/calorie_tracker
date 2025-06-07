@@ -16,6 +16,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(
                 Map.of(
                         "time", LocalDateTime.now(),
+                        "status", "404",
                         "error", notFoundException.getMessage()
                 ),
                 HttpStatus.NOT_FOUND

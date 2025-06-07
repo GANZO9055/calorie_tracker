@@ -13,7 +13,7 @@ public class DishController {
 
     private DishService dishService;
 
-    @PostMapping()
+    @PostMapping("/create")
     public void createDish(@RequestBody DishDto dishDto) {
         dishService.save(dishDto);
     }
