@@ -9,6 +9,6 @@ public interface UserService {
 
     User save(UserDto userDto);
     void delete(Long id);
-    User findById(Long id);
-    double calculationCalories(UserDto userDto);
+    UserDto findById(Long id);
+    UserDto calculationCaloriesForUserById(Long id);
 }

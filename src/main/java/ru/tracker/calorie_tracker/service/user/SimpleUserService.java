@@ -27,12 +27,12 @@ public class SimpleUserService implements UserService {
         userRepository.deleteById(id);
     }
 
-    public User findById(Long id) {
+    public UserDto findById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
            throw new NotFoundException("User not found by id: " + id);
         }
-        return userOptional.get();
+        return mapper.mappingUserEntityToUserDto(userOptional.get());
     }
 
     /**
@@ -40,7 +40,8 @@ public class SimpleUserService implements UserService {
      * по формуле Харриса-Бенедикта
      * @return double
      */
-    public double calculationCalories(UserDto userDto) {
+    public UserDto calculationCaloriesForUserById(Long id) {
+        UserDto userDto = findById(id);
         double calorie = 88.36
                 + (13.4 * userDto.getWeight())
                 + (4.8 + userDto.getHeight())
@@ -50,6 +51,7 @@ public class SimpleUserService implements UserService {
             case MAINTENANCE -> calorie = calorie + 0;
             case WEIGHT_GAIN -> calorie = calorie + 500;
         }
-        return calorie;
+        userDto.setCalorie(calorie);
+        return userDto;
     }
 }

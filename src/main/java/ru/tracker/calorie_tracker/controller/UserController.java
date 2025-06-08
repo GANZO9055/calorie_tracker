@@ -19,7 +19,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserDto getUserById(@PathVariable Long id) {
         return userService.findById(id);
+    }
+
+    @GetMapping("/calorie/{id}")
+    public UserDto getCalculationCaloriesUser(@PathVariable Long id) {
+        return userService.calculationCaloriesForUserById(id);
     }
 }

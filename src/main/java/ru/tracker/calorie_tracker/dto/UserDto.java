@@ -1,12 +1,12 @@
 package ru.tracker.calorie_tracker.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@Setter
+@Builder
 public class UserDto {
     private int id;
     private String name;
@@ -15,4 +15,7 @@ public class UserDto {
     private double weight;
     private double height;
     private Goal goal;
+    private double calorie;
 }
+
+
