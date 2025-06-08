@@ -1,0 +1,2 @@
+ALTER TABLE dishs
+DROP COLUMN user_id;
