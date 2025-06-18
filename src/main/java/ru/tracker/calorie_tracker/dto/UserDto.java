@@ -8,14 +8,14 @@ import lombok.Setter;
 @Setter
 @Builder
 public class UserDto {
-    private int id;
+    private Long id;
     private String name;
     private String email;
-    private int age;
-    private double weight;
-    private double height;
+    private Integer age;
+    private Double weight;
+    private Double height;
     private Goal goal;
-    private double calorie;
+    private Double calorie;
 }
 
 

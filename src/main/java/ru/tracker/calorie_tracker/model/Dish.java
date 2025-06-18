@@ -1,22 +1,30 @@
 package ru.tracker.calorie_tracker.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "dishs")
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+    @NonNull
     private String name;
-    private int calories;
-    private int protein;
-    private int fat;
-    private int carbs;
+    @NonNull
+    private Integer calories;
+    @NonNull
+    private Integer protein;
+    @NonNull
+    private Integer fat;
+    @NonNull
+    private Integer carbs;
+
+    @ManyToMany(mappedBy = "dishes")
+    private List<User> users;
 }

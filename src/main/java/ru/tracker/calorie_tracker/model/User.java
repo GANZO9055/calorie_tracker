@@ -1,24 +1,37 @@
 package ru.tracker.calorie_tracker.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private Long id;
+    @NonNull
     private String name;
+    @NonNull
     private String email;
-    private int age;
-    private double weight;
-    private double height;
+    @NonNull
+    private Integer age;
+    @NonNull
+    private Double weight;
+    @NonNull
+    private Double height;
+    @NonNull
     private String goal;
+
+    @ManyToMany
+    @JoinTable(
+            name = "food_intake",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
+    )
+    private List<Dish> dishes;
 }

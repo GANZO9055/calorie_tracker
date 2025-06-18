@@ -19,7 +19,6 @@ public class Mapper {
 
         }
         return new User(
-                userDto.getId(),
                 userDto.getName(),
                 userDto.getEmail(),
                 userDto.getAge(),
@@ -49,7 +48,6 @@ public class Mapper {
 
     public Dish mappingDishDtoToDishEntity(DishDto dishDto) {
         return new Dish(
-                dishDto.getId(),
                 dishDto.getName(),
                 dishDto.getCalories(),
                 dishDto.getProtein(),
