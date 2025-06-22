@@ -3,7 +3,7 @@ FROM maven:3.9.9-openjdk-17 as maven
 RUN mkdir calorie_tracker
 WORKDIR calorie_tracker
 COPY . .
-RUN mvn package -Dmave.test.skip=true
+RUN mvn package -Dmaven.test.skip=true
 CMD ["mvn", "liquibase:update", "-Pdocker"]
 
 # 2 этап - указание запуска проекта
