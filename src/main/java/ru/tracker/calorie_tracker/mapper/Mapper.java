@@ -24,7 +24,8 @@ public class Mapper {
                 userDto.getAge(),
                 userDto.getWeight(),
                 userDto.getHeight(),
-                value
+                value,
+                userDto.getPassword()
         );
     }
 
@@ -43,6 +44,7 @@ public class Mapper {
                 .weight(user.getWeight())
                 .height(user.getHeight())
                 .goal(value)
+                .password(user.getPassword())
                 .build();
     }
 
@@ -53,6 +55,17 @@ public class Mapper {
                 dishDto.getProtein(),
                 dishDto.getFat(),
                 dishDto.getCarbs()
+        );
+    }
+
+    public DishDto mappingDishEntityToDishDto(Dish dish) {
+        return new DishDto(
+                dish.getId(),
+                dish.getName(),
+                dish.getCalories(),
+                dish.getProtein(),
+                dish.getFat(),
+                dish.getCarbs()
         );
     }
 }

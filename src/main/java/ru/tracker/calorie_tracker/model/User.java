@@ -26,6 +26,8 @@ public class User {
     private Double height;
     @NonNull
     private String goal;
+    @NonNull
+    private String password;
 
     @ManyToMany
     @JoinTable(

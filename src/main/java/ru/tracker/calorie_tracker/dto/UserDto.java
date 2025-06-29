@@ -15,6 +15,7 @@ public class UserDto {
     private Double weight;
     private Double height;
     private Goal goal;
+    private String password;
     private Double calorie;
 }
 

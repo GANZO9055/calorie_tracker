@@ -3,6 +3,7 @@ package ru.tracker.calorie_tracker.service.dish;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.tracker.calorie_tracker.dto.DishDto;
+import ru.tracker.calorie_tracker.exception.NotFoundException;
 import ru.tracker.calorie_tracker.mapper.Mapper;
 import ru.tracker.calorie_tracker.model.Dish;
 import ru.tracker.calorie_tracker.repository.DishRepository;
@@ -26,7 +27,13 @@ public class SimpleDishService implements DishService {
         dishRepository.deleteById(id);
     }
 
-    public Optional<Dish> findById(Long id) {
-        return dishRepository.findById(id);
+    public DishDto findById(Long id) {
+        Optional<Dish> dishOptional = dishRepository.findById(id);
+        if (dishOptional.isEmpty()) {
+            throw new NotFoundException("Dish not found by id: " + id);
+        }
+        return mapper.mappingDishEntityToDishDto(
+                dishOptional.get()
+        );
     }
 }
