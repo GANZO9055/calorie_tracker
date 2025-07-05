@@ -12,27 +12,40 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class SimpleUserService implements UserService {
+public class SimpleUserService implements UserService, FindUserWithListAndNotList {
 
     private UserRepository userRepository;
     private Mapper mapper;
 
+    @Override
     public User save(UserDto userDto) {
         return userRepository.save(
                 mapper.mappingUserDtoToUserEntity(userDto)
         );
     }
 
+    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
 
-    public UserDto findById(Long id) {
+    @Override
+    public User findById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
            throw new NotFoundException("User not found by id: " + id);
         }
-        return mapper.mappingUserEntityToUserDto(userOptional.get());
+        return userOptional.get();
+    }
+
+    @Override
+    public UserDto findByIdNotList(Long id) {
+        return mapper.mappingUserEntityToUserDto(findById(id));
+    }
+
+    @Override
+    public UserDto findByIdWithList(Long id) {
+        return mapper.mappingUserEntityToUserDtoWithListDish(findById(id));
     }
 
     /**
@@ -40,8 +53,9 @@ public class SimpleUserService implements UserService {
      * по формуле Харриса-Бенедикта
      * @return double
      */
+    @Override
     public UserDto calculationCaloriesForUserById(Long id) {
-        UserDto userDto = findById(id);
+        UserDto userDto = findByIdNotList(id);
         double calorie = 88.36
                 + (13.4 * userDto.getWeight())
                 + (4.8 + userDto.getHeight())

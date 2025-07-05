@@ -1,15 +1,13 @@
 package ru.tracker.calorie_tracker.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "food_intake")
 @RequiredArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

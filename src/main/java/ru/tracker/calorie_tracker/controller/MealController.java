@@ -12,7 +12,7 @@ public class MealController {
 
     private MealService mealService;
 
-    @PostMapping("/createMeal")
+    @PostMapping("/create")
     public Meal createMeal(@RequestBody Meal meal) {
         return mealService.save(meal);
     }
@@ -20,5 +20,14 @@ public class MealController {
     @DeleteMapping("/delete")
     public void deleteMeal(@PathVariable Long id) {
         mealService.delete(id);
+    }
+
+    @GetMapping("/report/day")
+    public String reportCheckCalorieForDay(@PathVariable Long id) {
+        String report = "Пользователь не уложился в дневную норму калорий калории!";
+        if (mealService.checkingCaloriesForDay(id)) {
+            report = "Пользователь уложился в суточную норму калорий!";
+        }
+        return report;
     }
 }

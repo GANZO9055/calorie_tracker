@@ -48,6 +48,26 @@ public class Mapper {
                 .build();
     }
 
+    public UserDto mappingUserEntityToUserDtoWithListDish(User user) {
+        Goal value = Goal.MAINTENANCE;
+        switch (user.getGoal()) {
+            case "WEIGHT LOSS" -> value = Goal.WEIGHT_LOSS;
+            case "WEIGHT GAIN" -> value = Goal.WEIGHT_GAIN;
+
+        }
+        return UserDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .age(user.getAge())
+                .weight(user.getWeight())
+                .height(user.getHeight())
+                .goal(value)
+                .password(user.getPassword())
+                .dishes(user.getDishes())
+                .build();
+    }
+
     public Dish mappingDishDtoToDishEntity(DishDto dishDto) {
         return new Dish(
                 dishDto.getName(),
