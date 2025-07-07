@@ -11,13 +11,13 @@ import java.util.List;
 public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findByUserIdOrderByTimeOfAdditionDesc(Long id);
 
-    @Query("""
+    @Query(value = """
             select * from food_intake
             where (user_id = :id) and (time_of_addition >= :dateTime - interval '24 hours');
             order by time_of_addition desc
-            """)
+            """, nativeQuery = true)
     List<Meal> findByUserIdAndTimeOfAddition(
             @Param("id") Long id,
-            @Param("dataTime") LocalDateTime dateTime
+            @Param("dateTime") LocalDateTime dateTime
     );
 }

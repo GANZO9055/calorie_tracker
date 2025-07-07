@@ -25,5 +25,6 @@ public class Meal {
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private Dish dish;
-    private final LocalDateTime dateTime = LocalDateTime.now();
+    @Column(name = "time_of_addition")
+    private final LocalDateTime timeOfAddition = LocalDateTime.now();
 }
