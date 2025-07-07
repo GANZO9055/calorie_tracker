@@ -3,6 +3,8 @@ package ru.tracker.calorie_tracker.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "food_intake")
 @RequiredArgsConstructor
@@ -23,4 +25,5 @@ public class Meal {
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private Dish dish;
+    private final LocalDateTime dateTime = LocalDateTime.now();
 }

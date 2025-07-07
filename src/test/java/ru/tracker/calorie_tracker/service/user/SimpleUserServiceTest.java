@@ -56,7 +56,7 @@ class SimpleUserServiceTest {
                 .build();
 
         User savedUser = userService.save(user);
-        UserDto userDto = userService.findById(savedUser.getId());
+        UserDto userDto = userService.findByIdNotList(savedUser.getId());
 
         assertThat(userDto.getEmail()).isEqualTo(user.getEmail());
         assertThat(userDto.getPassword()).isEqualTo(user.getPassword());
