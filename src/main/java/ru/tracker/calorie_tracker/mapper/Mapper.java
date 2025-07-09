@@ -1,5 +1,7 @@
 package ru.tracker.calorie_tracker.mapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.tracker.calorie_tracker.dto.DishDto;
 import ru.tracker.calorie_tracker.dto.Goal;
@@ -9,6 +11,9 @@ import ru.tracker.calorie_tracker.model.User;
 
 @Component
 public class Mapper {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public User mappingUserDtoToUserEntity(UserDto userDto) {
         String value = "";
@@ -25,7 +30,7 @@ public class Mapper {
                 userDto.getWeight(),
                 userDto.getHeight(),
                 value,
-                userDto.getPassword()
+                passwordEncoder.encode(userDto.getPassword())
         );
     }
 
