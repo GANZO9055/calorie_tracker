@@ -1,6 +1,9 @@
 package ru.tracker.calorie_tracker.service.meal;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.tracker.calorie_tracker.dto.UserDto;
 import ru.tracker.calorie_tracker.model.Dish;
@@ -17,6 +20,12 @@ public class SimpleMealService implements MealService {
 
     private MealRepository mealRepository;
     private UserService userService;
+    private KafkaTemplate<String, Object> kafkaTemplate;
+
+    @KafkaListener(topics = "save_meal")
+    public void saveMeal(Meal meal) {
+        save(meal);
+    }
 
     @Override
     public Meal save(Meal meal) {
@@ -31,25 +40,26 @@ public class SimpleMealService implements MealService {
     @Override
     public List<Meal> reportNutritionUserForDay(Long id) {
         LocalDateTime dateTime = LocalDateTime.now();
-        return mealRepository.findByUserIdAndTimeOfAddition(id, dateTime);
+        List<Meal> mealList = mealRepository.findByUserIdAndTimeOfAddition(id, dateTime);
+        kafkaTemplate.send("reportNutritionForDay", mealList);
+        return mealList;
     }
 
-    /**
-     * Исправить данный вариант
-     * @param id
-     * @return boolean
-     */
     @Override
     public boolean checkingCaloriesForDay(Long id) {
         UserDto userDto = userService.findByIdWithList(id);
         UserDto userCalculation = userService.calculationCaloriesForUserById(userDto.getId());
         double sumCalorie = calculationCaloriesForDishes(userDto.getDishes());
-        return userCalculation.getCalorie() <= sumCalorie;
+        boolean checkingCalorie = userCalculation.getCalorie() <= sumCalorie;
+        kafkaTemplate.send("checkingCalorie", checkingCalorie);
+        return checkingCalorie;
     }
 
     @Override
     public List<Meal> reportNutritionUserByDays(Long id) {
-        return mealRepository.findByUserIdOrderByTimeOfAdditionDesc(id);
+        List<Meal> mealList = mealRepository.findByUserIdOrderByTimeOfAdditionDesc(id);
+        kafkaTemplate.send("reportNutritionForDays", mealList);
+        return mealList;
     }
 
 

@@ -1,6 +1,8 @@
 package ru.tracker.calorie_tracker.service.user;
 
 import lombok.AllArgsConstructor;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.tracker.calorie_tracker.dto.UserDto;
 import ru.tracker.calorie_tracker.exception.NotFoundException;
@@ -16,6 +18,12 @@ public class SimpleUserService implements UserService {
 
     private UserRepository userRepository;
     private Mapper mapper;
+    private KafkaTemplate<String, User> kafkaTemplate;
+
+    @KafkaListener(topics = "create_user")
+    public void create(UserDto userDto) {
+        save(userDto);
+    }
 
     @Override
     public User save(UserDto userDto) {
